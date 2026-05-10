@@ -14,6 +14,29 @@
  *     github="https://github.com/benbrandt"
  *   />
  */
+/**
+ * Renders a user profile section with name, optional role, and optional GitHub link.
+ * Displays the name as a hyperlink if a GitHub URL is provided.
+ * Applies styling for light and dark modes.
+ * 
+ * @param {Object} props - User information.
+ * @param {string} props.name - The user's name.
+ * @param {string} [props.role] - The user's role or title (optional).
+ * @param {string} [props.github] - URL to the user's GitHub profile (optional).
+ * @returns {JSX.Element} A styled React component displaying the user info.
+ * @throws {TypeError} If required props.name is missing or not a string.
+ */
+/**
+ * Renders a profile section with name, optional role, and optional GitHub link.
+ * Name is a hyperlink if GitHub URL is provided; supports light/dark mode styling.
+ * 
+ * @param {Object} props - User information.
+ * @param {string} props.name - The user's name.
+ * @param {string} [props.role] - Optional user role.
+ * @param {string} [props.github] - Optional GitHub profile URL.
+ * @returns {JSX.Element} The rendered profile section component.
+ * @throws {TypeError} If required props.name is missing or not a string.
+ */
 export const Author = ({ name, role, github }) => (
   <div className="mt-8 border-t border-gray-200 pt-4 dark:border-gray-800">
     <div className="font-semibold">
