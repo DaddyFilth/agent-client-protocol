@@ -17,20 +17,20 @@ jobs:
     steps:
       - &checkout
         name: Checkout repository
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
         with:
           fetch-depth: 0
           persist-credentials: false
       - &install-rust
         name: Install Rust toolchain
-        uses: dtolnay/rust-toolchain@3c5f7ea28cd621ae0bf5283f0e981fb97b8a7af9
+        uses: dtolnay/rust-toolchain@fa04a1451ff1842e2626ccb99004d0195b455a88
         with:
           toolchain: stable
       - &generate-token
         # Generating a GitHub token, so that PRs and tags created by
         # the release-plz-action can trigger actions workflows.
         name: Generate GitHub token
-        uses: actions/create-github-app-token@1b10c78c7865c340bc4f6099eb2f838309f1e8c3
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1
         id: generate-token
         with:
           # GitHub App ID secret name
@@ -38,7 +38,7 @@ jobs:
           # GitHub App private key secret name
           private-key: ${{ secrets.RELEASE_PLZ_APP_PRIVATE_KEY }}
       - name: Run release-plz
-        uses: release-plz/action@1528104d2ca23787631a1c1f022abb64b34c1e11
+        uses: release-plz/action@e8792575c7f2366cf6ff3ccc33ead9ace5b691c7
         with:
           command: release
         env:
@@ -59,7 +59,7 @@ jobs:
       - *install-rust
       - *generate-token
       - name: Run release-plz
-        uses: release-plz/action@1528104d2ca23787631a1c1f022abb64b34c1e11
+        uses: release-plz/action@e8792575c7f2366cf6ff3ccc33ead9ace5b691c7
         with:
           command: release-pr
         env:

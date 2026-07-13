@@ -8,9 +8,29 @@ The Agent Client Protocol (ACP) standardizes communication between _code editors
 
 Learn more at [agentclientprotocol.com](https://agentclientprotocol.com/).
 
+## Rust Crate and Schema Artifacts
+
+This repository's root Rust crate is [`agent-client-protocol-schema`](https://crates.io/crates/agent-client-protocol-schema). It provides the Rust data model for ACP wire messages, including request, response, notification, JSON-RPC envelope, and protocol-version types. Use this crate when you need direct access to ACP protocol types, schema-oriented tooling, or code generation inputs.
+
+If you are implementing a Rust ACP agent or client, start with the higher-level [`agent-client-protocol`](https://crates.io/crates/agent-client-protocol) runtime crate instead. That crate provides the client and agent runtime APIs for ACP integrations; this schema crate is the lower-level protocol type surface.
+
+Generated JSON Schema artifacts live in [`schema/v1`](./schema/v1/) and [`schema/v2`](./schema/v2/). When a schema release is published, the versioned `.json` files are also attached to the corresponding [`schema-v*` GitHub release](https://github.com/agentclientprotocol/agent-client-protocol/releases), which is the recommended download surface for SDK generators and other release automation.
+
+## Versioning
+
+The Rust crate version and JSON Schema release versions describe the Rust crate and JSON Schema artifacts themselves. The Rust crate is published to crates.io, while the versioned JSON Schema files are attached to GitHub releases rather than published as crates. These versions follow the compatibility expectations of those artifacts: Rust APIs, generated schema structure, artifact layout, and other details that downstream SDKs or code generators may consume.
+
+**The current stable ACP protocol version is `1`.**
+
+ACP wire compatibility is determined separately by the protocol version exchanged during `initialize` via `protocolVersion`. The `version` field in the versioned `schema/*/meta*.json` files also describes the ACP protocol version that the corresponding schema represents.
+
+This means two versions of the JSON Schema artifacts can describe the same wire-compatible ACP protocol version while having different schema structure for SDK generators. For example, a release might change how definitions are organized, named, or emitted in the JSON Schema in a way that affects downstream code generation without changing the JSON messages exchanged by ACP clients and agents.
+
+Consumers should not infer wire compatibility from the crate or schema release version alone. Use the negotiated `protocolVersion` to determine the ACP wire protocol shape and breaking-compatibility level. Within a protocol version, use the exchanged capabilities to decide which optional ACP messages and features are supported. Use artifact versions to manage compatibility with this repository's Rust and schema outputs.
+
 ## Integrations
 
-- [Schema](./schema/schema.json)
+- [Schema](./schema/v1/schema.json)
 - [Agents](https://agentclientprotocol.com/overview/agents)
 - [Clients](https://agentclientprotocol.com/overview/clients)
 - Official Libraries
